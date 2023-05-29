@@ -1,0 +1,415 @@
+@mixin mobile {
+    @media screen and (max-width: 480px) {
+      @content;
+    }
+  }
+  @mixin tablet {
+    @media screen and (max-width: 768px) {
+      @content;
+    }
+  }
+  @mixin laptop {
+    @media screen and (max-width: 1200px) {
+      @content;
+    }
+  }
+
+
+
+
+*{
+    margin: 0%;
+    padding: 0%;
+    // height: 100%;
+    font-family:Nunito;
+    box-sizing: border-box;
+}
+
+.form-container{
+    // background-color: #e27396;
+    background-color: #111B21;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // border-radius: 10px;
+    // scss mai kr skte nested vala
+    .formWrapper
+    {
+        // background-color:  white;
+        // background-color: #202C33;
+        background-color: #2A3942;
+        display: flex;
+        flex-direction: column;
+        padding:20px 60px;
+        border-radius:10px;
+        gap:10px;
+        align-items: center;
+        justify-content: center;
+      
+
+        .logo{
+            // color:#e27396;
+            // color: #AEBAC1;
+            color: #e27396;
+            font-weight:bold;
+            font-size:24px;
+        }
+        .title{
+            // color:#e27396;
+            color: #AEBAC1;
+            font-size: 15px;
+        }
+        input{
+            padding: 15px;
+            border: none;
+            width: 250px;
+            border-bottom: 1px solid #e27396;
+            &::placeholder{
+                color: rgb(226, 115, 150);
+            }
+            outline: none;
+            
+        
+            
+
+        }
+        label{
+            display: flex;
+            align-items: center;
+            color:#e27396;
+            gap: 10px;
+            font-size: 15px;
+            cursor: pointer;
+        img{
+            width: 40px;
+            cursor: pointer;
+        }
+        }
+       
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        button{
+            border: none;
+            padding: 5%;
+            background-color:  #e27396;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            
+        }
+        p{
+            color: rgb(226, 115, 150);
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+    }
+
+
+    
+}
+.home{
+    background-color: #111B21;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: black;
+
+    .inside-home{
+         border: 1px solid white;
+         border-radius: 10px;
+         width: 65%;
+         height: 90%;
+         display: flex;
+         overflow: hidden;
+         @include tablet {
+            width: 90%;
+           }
+    }
+    .sidebar{
+        flex: 1;
+        background-color: #111B21;
+        border-right: 0.5px solid white; 
+       
+        // border-right: 1px solid #ff7477;
+        .navbar{
+            display: flex;
+            align-items: center;
+            background-color:#202C33;
+            height: 50px;
+            padding: 10px;
+            justify-content: space-between;
+            color: white;
+            // border-right: 0.5px solid white;            // border: 1px solid black;
+        }
+        .Logo{
+            font-weight: bold;
+            @include tablet {
+                display: none;
+              }
+            // color: white;
+        }
+        .right{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            img{
+                background-color: white;
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            // button{
+            //     background-color: #e27396;
+            //     color: black;
+            //     font-size: 15px;
+            //     border: 1px solid black;
+            //     cursor: pointer;
+            //     border-radius: 5px;
+            //     padding: 7px;
+
+            // }
+            
+        }
+        // just below navbar css
+        .search{
+            border-bottom: 1px solid black;
+            
+        
+        .searchForm{
+            padding: 10px;
+            input{
+                background-color: transparent;
+                border: none;
+                color: white;
+                outline: none;
+                background-color: #202C33;
+                width: 100%;
+                border-radius: 15px;
+                border: 2px solid #202C33;
+                height: 40px;
+                
+            &::placeholder{
+                
+                padding-left: 10px;
+                left: 34.5%;
+                color: gray;
+            }
+        }
+        }
+        
+    }
+    
+      
+      
+
+    
+        .userchat{
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            cursor: pointer;
+
+            &:hover{
+                background-color:#2A3942;
+            }
+            img{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+        }
+        .chating{
+            
+            
+            span{
+                color: white;
+                font-size: 18px;
+                font-weight: 500;
+            }
+            p{
+                font-size: 14px;
+                color: gray;
+            }
+        }
+        
+        }
+        // chats css
+        // .userchating{
+        //     padding: 10px;
+        //     display: flex;
+        //     align-items: center;
+        //     gap: 10px;
+        //     color: white;
+        //     cursor: pointer;
+
+        //     &:hover{
+        //         background-color:#809bce;
+        //     }
+        //     img{
+        //         width: 50px;
+        //         height: 50px;
+        //         border-radius: 50%;
+        //     }
+
+        
+    }
+        
+    .chat{
+        flex: 2;
+        background-color: #0B141A;
+
+        // button{
+        //     background-color: #e27396;
+        //     color: black;
+        //     font-size: 15px;
+        //     border: 1px solid black;
+        //     cursor: pointer;
+        //     border-radius: 5px;
+        //     padding: 7px;
+
+        // }
+        .chatinfo{
+            height: 50px;
+            background-color: #202C33;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        button{
+            background-color: #AEBAC1;
+            color: black;
+            font-weight: bold;
+            font-size: 15px;
+            border: 1px solid black;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 7px;
+
+        }
+        .messages{
+            color: #DAEDEF;
+            background-color: #111B21;
+            padding: 10px;
+            height: calc(110% - 170px);
+            overflow: scroll;
+            overflow-x: hidden;
+            
+            .message{
+                display: flex;
+                gap: 20px;
+                margin-bottom: 20px;
+                
+                .messageinfo{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    color: #AEBAC1;
+                    font-weight: 300px;
+                    
+                    img{
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                    // yh likhte toh mtlb parent se reference liya hai toh baki chije likhni nhi pdti
+                    
+                }
+                .messagecontent{
+                    max-width: 80%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    p{
+                        // background-color: #005C4B;
+                        padding: 10px 20px ;
+                        // max width utni rhegi jitna content hai
+                        max-width: max-content;
+                        // border-radius: 0px 10px 10px 10px;
+                        
+                    }
+                    img{
+                        width: 50%;
+                    }
+
+                  
+                } 
+                &.owner{
+                    flex-direction: row-reverse;
+
+                    .messagecontent{
+
+                    align-items: flex-end;
+
+                
+                p{
+                    background-color: #005C4B;
+                    color: white;
+                    border-radius: 10px 0px 10px 10px;
+                }
+            }
+            }
+                    
+            }
+        }
+        .imputing{
+            display: flex;
+            justify-content: space-between;
+            margin: 10px;
+            // padding: 5px;
+            // align-items: center;
+            .texting{
+                width: 87%;
+                border-radius: 20px;
+                border: none;
+                color:#E0E1E3;
+                background-color:#202C33;          
+                &::placeholder{
+                
+                    padding-left: 10px;
+                    // left: 34.5px;
+                    color: gray;
+                }
+               
+            }
+            .butting{
+                border-radius: 12px;
+                width: 65px;
+            }
+        }
+
+    }
+    .eyebutton {
+        display: flex;
+        align-items: center;
+        position: relative; /* Add position relative to enable absolute positioning of the eye icon */
+      }
+      
+      .eyebutton input[type='password'] {
+        padding-right: 30px; /* Adjust the padding to create space for the eye icon */
+      }
+      
+      .eyebutton img {
+        position: absolute;
+        right: 5px; /* Adjust the right position as needed */
+        top: 50%;
+        transform: translateY(-50%);
+        width: 25px;
+        cursor: pointer;
+      }
+      
+
