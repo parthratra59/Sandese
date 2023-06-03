@@ -17,40 +17,34 @@ import { Authorization } from './Context/AuthContext'
 // import Login from './components/Login'
 const App = () => {
 
-  const {currentuser}= useContext(Authorization)
+  const { currentUser } = useContext(Authorization);
 
-  console.log(currentuser)
-
-
-
-
-  // ab agr jb tk login nhi hai toh chat vala page nhi deikhega
-  // protected route krdiya
-
-  const Protectedroute=({children})=>{
-    if(!currentuser)
-    {
-     return <Navigate to='/login'/>
+  const ProtectedRoute = ({ children }) => {
+    if (!currentUser) {
+      return <Navigate to="/login" />;
     }
-    return children;
-  }
+
+    return children
+  };
+
+  
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/">
+        <Route >
           <Route
-             index element={
-              // <Protectedroute>
+            index
+            element={
+              <ProtectedRoute >
                 <Home />
-              // </Protectedroute>
+              </ProtectedRoute>
             }
           />
-        <Route path='login' element={<Login/>}/>
-        <Route path='register' element={<Register/>}/>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
-
 export default App
