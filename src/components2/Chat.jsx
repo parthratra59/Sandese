@@ -1,37 +1,40 @@
-import React from 'react'
-// import Cam from '../image/cam-recorder.png'
-// import video from '../images/video.png'
-import Messages from './Messages'
-import Input from './Input'
-
-import { auth } from '../Firebase'
-import { Navigate } from 'react-router-dom'
+import React, { useContext } from 'react';
+import { auth } from '../Firebase';
 import { useNavigate } from 'react-router-dom';
-// import { browserHistory } from 'react-router';
+import { ChatContext } from '../Context/ChatContext';
+import Messages from "./Messages";
+import Input from "./Input";
 const Chat = () => {
   const navigate = useNavigate();
+  const { data } = useContext(ChatContext);
 
-  function logout() {
-    localStorage.clear();
-
-    navigate("/login");
-  }
+  const logout = async () => {
+    try {
+      // promises ke liye hota yh async await ki execute hua toh yus wrna no
+      // In computer programming, asynchronous refers to a programming paradigm and execution model where tasks or operations can be executed concurrently or independently of the main program flow. Asynchronous operations allow a program to perform tasks in the background without blocking the execution of other tasks.
+      await auth.signOut();
+      navigate('/login');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <div className='chat'>
         <div className='chatinfo'>
-          <span style={{ color: '#E0E1E3', fontWeight: 'bold' }}>Virat</span>
+          <span style={{ color: '#E0E1E3', fontWeight: 'bold' }}>{data.user?.displayName}</span>
           <div className='chaticons'>
-            {/* <img src={} alt=''/> */}
-            <button onClick={logout}>Logout</button>
+            <button onClick={logout} style={{ background: '#e27396' }}>Logout</button>
           </div>
         </div>
-        <Messages/>
-        <Input/>
+        {/* Render your Messages and Input components here */}
+        <Messages />
+      <Input/>
+
       </div>
     </>
   );
-}
+};
 
-export default Chat
+export default Chat;

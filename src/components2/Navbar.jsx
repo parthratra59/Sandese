@@ -13,7 +13,7 @@ const Navbar = () => {
     <div className='right'>
         <img src= {currentUser.photoURL}alt=''/>
         {/* </img> */}
-        <span style={{fontWeight:"bold"}}>{currentUser.displayName}</span>
+        <span style={{fontWeight:"bold",color:' #e27396'}}>{currentUser.displayName}</span>
         {/* <button>Logout</button> */}
     </div>
     </div>

@@ -1,21 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { Authorization } from '../Context/AuthContext';
+import { ChatContext } from '../Context/ChatContext';
 
-const Message = () => {
+const Message = ({ message }) => {
+  const { currentuser } = useContext(Authorization);
+  const { data } = useContext(ChatContext);
+
   return (
-  <>
-    <div className='message owner'>
-      <div className='messageinfo'>
-     
-      <img src='https://images.pexels.com/photos/16628103/pexels-photo-16628103/free-photo-of-city-art-street-traveling.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'/>
-      <span >just now</span>
+    <>
+      <div className="message owner" style={{ overflow: 'hidden', maxHeight: '200px' }}>
+        {/* Rest of your message content */}
       </div>
-      <div className='messagecontent'>
-        <p>Hello</p>
-        <img src='https://images.pexels.com/photos/16628103/pexels-photo-16628103/free-photo-of-city-art-street-traveling.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'/>
-      </div>
-    </div>
-  </>
-  )
-}
+    </>
+  );
+};
 
-export default Message
+export default Message;

@@ -20,29 +20,27 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   const email = e.target[0].value;
-    const  password = e.target[1].value;
-    // Set email and password in local storage
-
-
+    const email = e.target[0].value;
+    const password = e.target[1].value;
+    
     try {
       // Sign in using Firebase
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth,email, password);
       navigate('/');
-    } catch (error) {
+    } 
+    catch (error) {
       setErr(true);
     }
   };
 
-  
   const handlePasswordChange = (e) => {
     const password = e.target.value;
-   
     // Perform any necessary logic based on password validity
   };
-  // Set email and password in local storage
 
-
+  const topasswordchange = () => {
+    navigate('/PasswordReset');
+  };
 
   return (
     <>
@@ -51,7 +49,7 @@ const Login = () => {
           <span className='logo'>Sandese App</span>
           <span className='title'>Login</span>
           <form className='forming' onSubmit={handleSubmit}>
-            <input type='email' placeholder='Email'  required />
+            <input type='email' placeholder='Email' required />
             <div className='eyebutton' style={{ display: 'flex', alignItems: 'center' }}>
               <input
                 type={passwordvisible ? 'text' : 'password'}
@@ -64,16 +62,17 @@ const Login = () => {
             </div>
             <button>Sign in</button>
             {err && <p style={{ color: 'red' }}>Invalid email or password.</p>}
-           
-    
-                {/* because account nhi hai  */}
-                <p>You don't have an account? <Link style={{color:'#e27396' ,textDecoration: 'none' ,fontWeight:'bold'}} to="/register">Register</Link></p>
-            </form>
-            
+            <p>
+              You don't have an account? <Link style={{ color: '#e27396', textDecoration: 'none', fontWeight: 'bold' }} to="/register">Register</Link>
+            </p>
+            <p style={{ cursor: 'pointer', color: '#AEBAC1', marginTop: '-2px' }} onClick={topasswordchange}>
+              Forgot Password
+            </p>
+          </form>
         </div>
-        </div>
+      </div>
     </>
-   )
-}
+  );
+};
 
-export default Login
+export default Login;

@@ -1,22 +1,13 @@
-import React, { useContext } from 'react'
-import Register from './components/Register'
-import './style.scss'
-import Login from './components/Login'
-import Home from './components/Home'
-// import { Authorization } from './Context/AuthContext'
-import {
-  BrowserRouter ,
-  Switch,
-  Route,
-  Link,
-  Routes,
-  Navigate
-} from "react-router-dom";
-import { Authorization } from './Context/AuthContext'
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import "./style.scss";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { Authorization } from "./Context/AuthContext";
+import PasswordReset from "./components/PasswordReset";
 
-// import Login from './components/Login'
-const App = () => {
-
+function App() {
   const { currentUser } = useContext(Authorization);
 
   const ProtectedRoute = ({ children }) => {
@@ -24,27 +15,28 @@ const App = () => {
       return <Navigate to="/login" />;
     }
 
-    return children
+    return children;
   };
 
-  
   return (
     <BrowserRouter>
       <Routes>
-        <Route >
+        <Route path="/">
           <Route
             index
             element={
-              <ProtectedRoute >
+              <ProtectedRoute>
                 <Home />
               </ProtectedRoute>
             }
           />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="passwordreset" element={<PasswordReset />} />
         </Route>
       </Routes>
     </BrowserRouter>
   );
 }
-export default App
+
+export default App;
