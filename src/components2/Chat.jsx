@@ -21,7 +21,7 @@ const Chat = () => {
 
   return (
     <>
-      <div className='chat'>
+      <div className='chat' >
         <div className='chatinfo'>
           <span style={{ color: '#E0E1E3', fontWeight: 'bold' }}>{data.user?.displayName}</span>
           <div className='chaticons'>

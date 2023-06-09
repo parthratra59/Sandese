@@ -29,22 +29,19 @@ const Register = () => {
     }
 
     const navigate=useNavigate()
-    const handleSubmit= async(e)=>{
+    const handleSubmit = async (e) => {
       setLoading(true);
-        e.preventDefault();
-        // console.log(e.target[0].value)
-
-        const displayName=e.target[0].value;
-         email=e.target[1].value;
-         password=e.target[2].value;  
-        const file=e.target[3].files[0];
-          // files images vgrh storage mai hote hai 
-          // isliye upload vale docs se liya firebase ke
-        try {
-                    // sb firebase se liya hai upload file storage se
-          const res = await createUserWithEmailAndPassword(auth, email, password);
-          
-          // ab vo object not found ht gya error ab uniquly identify hone lga
+      e.preventDefault();
+    
+      const displayName = e.target[0].value;
+      const email = e.target[1].value;
+      const password = e.target[2].value;
+      const file = e.target[3].files[0];
+    
+      try {
+        const res = await createUserWithEmailAndPassword(auth, email, password);
+    
+       
           const date = new Date().getTime();
           const storageRef = ref(storage, `${displayName + date}`);
     
@@ -55,18 +52,16 @@ const Register = () => {
                   displayName,
                   photoURL: downloadURL,
                 });
-                // create user collection hai 
+    
                 await setDoc(doc(db, "users", res.user.uid), {
                   uid: res.user.uid,
                   displayName,
                   email,
                   photoURL: downloadURL,
                 });
-                // uid ,phourl jaise terms conole mai the  jb inspect kiya tha vhs se liye hai
-                 // create user collection hai 
-                 //create empty user chats on firestore
+    
                 await setDoc(doc(db, "userChats", res.user.uid), {});
-                 // {} isliye hai ki abhi register kiya toh kaise koi baat hogi kisi ki});
+    
                 navigate("/");
               } catch (error) {
                 console.log(error.message);
@@ -77,12 +72,17 @@ const Register = () => {
           });
     
           setAvatarSelected(true);
-        } catch (err) {
-          console.log(err.message);
+        
           setErr(true);
           setLoading(false);
-        }
-      }  
+      
+      } catch (err) {
+        console.log(err.message);
+        setErr(true);
+        setLoading(false);
+      }
+    };
+    
 // createUserWithEmailAndPassword(auth, email, password)
 //   .then((userCredential) => {
 //     // Signed in 

@@ -1,12 +1,12 @@
 import React from 'react'
 import { useContext } from 'react'
 import { auth } from '../Firebase'
-import { Authorization } from '../Context/AuthContext'
+import { AuthContext } from '../Context/AuthContext'
 // import '../style.scss'
 
 const Navbar = () => {
 
-  const {currentUser} =useContext(Authorization)
+  const {currentUser} =useContext(AuthContext)
   return (
     <div className='navbar'>
     <span className='Logo'>Sandese App</span>

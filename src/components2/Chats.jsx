@@ -1,62 +1,63 @@
- import React, { useContext, useEffect, useState } from 'react'
-import { Authorization } from '../Context/AuthContext';
-import { doc, onSnapshot } from "firebase/firestore";
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../Context/AuthContext';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../Firebase';
-import {ChatContext}from '../Context/ChatContext';
-//  import '../style.scss'
+import { ChatContext } from '../Context/ChatContext';
 
- const Chats = () => {
-  // fetching chats from firebase
-  // realtime se uthaya
+const Chats = () => {
+  const [chats, setChats] = useState({});
+  const { currentUser } = useContext(AuthContext);
+  const { dispatch } = useContext(ChatContext);
 
-    const [chats,setchats]=useState([]);
-    const {currentUser}=useContext(Authorization);
-    const {dispatch}=useContext(ChatContext)
-    useEffect(() => {
-      // fetching ka kaam aya useeffect use hua
-      const getchats=()=>{
-      const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
-
+  useEffect(() => {
+    const getChats = () => {
+      const unsub = onSnapshot(doc(db, 'userChats', currentUser.uid), (doc) => {
         const data = doc.data();
-        // agr yh nhi krege toh error dega because data null hai 
         if (data) {
-          setchats(data);
+          setChats(data);
         }
-        // console.log(source, " data: ", doc.data());
       });
-      
+
       return () => {
         unsub();
-      }
+      };
     };
-    // agr yh nhi likhege 
-     // agr yh nhi krege toh error dega because data null hai 
-    currentUser.uid && getchats();
-    }, [currentUser.uid]);
-    // array[2] ke form mai dikhega  phela index chat id dikhaega nd 2nd object display name vgrh
-    // console.log(Object.entries(chats));
-    const handleselect=(u)=>{
-      dispatch({type: "CHANGE_USER",payload:u})
+
+    currentUser.uid && getChats();
+  }, [currentUser.uid]);
+
+  const handleSelect = (user) => {
+    dispatch({ type: 'CHANGE_USER', payload: user });
+  };
+
+  const truncateText = (text, maxLength) => {
+    if (text && text.length > maxLength) {
+      return text.slice(0, maxLength) + '...';
     }
-return(
+    return text;
+  };
+  
+  return (
     <>
-     <div className='chatcomponent'>
-     {Object.entries(chats)?.map((chat)=>(
-      /* chat 0 id user ki deti hai  */
-        <div className='userchat' key={chat[0]} onClick={()=>handleselect(chat[1].userInfo)}>
-        <img src={chat[1].userInfo.photoURL} alt=''/>
-        <div className='chating'>
-          <span>
-            {chat[1].userInfo.displayName }
-          </span>
-          <p>{chat[1].userInfo.lastMessage?.text}</p>
-        </div>
+      <div className='chatcomponent'>
+        {Object.entries(chats)
+          .sort((a, b) => b[1].date - a[1].date)
+          .map((chat) => (
+            <div
+              className='userchat'
+              key={chat[0]}
+              onClick={() => handleSelect(chat[1].userInfo)}
+            >
+              <img src={chat[1].userInfo.photoURL} alt='' />
+              <div className='chating'>
+                <span>{chat[1].userInfo.displayName}</span>
+                <p>{truncateText(chat[1].lastMessage?.text, 20)}</p>
+              </div>
+            </div>
+          ))}
       </div>
-      ))}
-    </div>
-    
     </>
-   )
- }
- 
- export default Chats
+  );
+};
+
+export default Chats;

@@ -2,19 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import GlobalStyle from './styles/GlobalStyle';
 import App from './App';
-import AuthContext  from './Context/AuthContext';
+import Authorization  from './Context/AuthContext';
 import Chatcontextprovider from './Context/ChatContext';
 
 ReactDOM.render(
   <>
       {/* <GlobalStyle/> */}
-      <AuthContext>
+      <Authorization>
         <Chatcontextprovider>
         <React.StrictMode>
         {/* app pr user ki auth toh lagani padegi na vohi lagai hai */}
       <App/>
       </React.StrictMode>
       </Chatcontextprovider>
-      </AuthContext>
+      </Authorization>
   </>,document.getElementById('root')
 )

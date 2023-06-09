@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth'
 // import { auth } from '../Firebase'
 import React, { createContext, useContext, useEffect, useReducer, useState } from 'react'
-import { Authorization } from './AuthContext'
+import { AuthContext } from './AuthContext'
 
 // right side ke chats ko kaise handle 
 // use state bhi krskte but but yh thoda complex hai 
@@ -10,7 +10,7 @@ import { Authorization } from './AuthContext'
 const ChatContext=createContext()
 // const {currentUser}=useContext(Authorization);
 export const Chatcontextprovider = ({children}) => {
-    const {currentUser} = useContext(Authorization);
+    const {currentUser} = useContext(AuthContext);
     const INITIAL_STATE ={
         chatId:'null',
         user : {}

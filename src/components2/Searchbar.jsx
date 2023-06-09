@@ -9,16 +9,17 @@ import {   collection,
   serverTimestamp,
   getDoc,} from 'firebase/firestore';
 import { db } from '../Firebase';
-import { Authorization } from '../Context/AuthContext';
+import { AuthContext } from '../Context/AuthContext';
 import { useContext } from 'react';
 
 const Searchbar = () => {
   const [username, setUsername] = useState('');
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
-  const { currentUser } = useContext(Authorization);
+  const { currentUser } = useContext(AuthContext);
   // koi bbhi hook function ke andr nhi rhege bhar rhete hia
   const handleSearch = async () => {
+    
     // const { currentUser } = useContext(Authorization);
   
   // docs se uthaya hai firestore ke query se

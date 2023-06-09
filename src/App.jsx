@@ -4,11 +4,11 @@ import Register from "./components/Register";
 import "./style.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
-import { Authorization } from "./Context/AuthContext";
+import { AuthContext } from "./Context/AuthContext";
 import PasswordReset from "./components/PasswordReset";
 
 function App() {
-  const { currentUser } = useContext(Authorization);
+  const { currentUser } = useContext(AuthContext);
 
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
