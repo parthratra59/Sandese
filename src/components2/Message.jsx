@@ -22,8 +22,10 @@ const Message = ({ message }) => {
   useEffect(()=>{
     const time =setInterval(() => {
       settime(calculateMinutesElapsed())
-    }, 6000);
-    return ()=>clearInterval
+    }, 60000);
+    return () => {
+      clearInterval(time);
+    };
   },[])
 
 
@@ -33,7 +35,8 @@ const Message = ({ message }) => {
     const sentDate = message.date.toDate();
     const diff = Math.floor((now - sentDate) / (1000 * 60)); // Calculate the difference in minutes
     
-    if (diff < 60) {
+   
+    if (  diff < 60) {
       return diff + ' min'; // Return the minutes if less than 60
     } else {
       const hours = Math.floor(diff / 60); // Calculate the hours
