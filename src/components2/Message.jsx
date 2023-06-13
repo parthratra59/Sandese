@@ -10,6 +10,7 @@ const Message = ({ message }) => {
 
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
+    
   }, [message]);
 
   const truncateText = (text, maxLength) => {
@@ -19,14 +20,15 @@ const Message = ({ message }) => {
     return text;
   };
 // duration se kuch milta khulta hota toh set interval nikalte
-  useEffect(()=>{
-    const time =setInterval(() => {
-      settime(calculateMinutesElapsed())
-    }, 60000);
-    return () => {
-      clearInterval(time);
-    };
-  },[])
+useEffect(() => {
+  const time = setInterval(() => {
+    settime(calculateMinutesElapsed());
+  }, 60000);
+
+  return () => {
+    clearInterval(time);
+  };
+}, []);
 
 
 
@@ -63,8 +65,9 @@ const Message = ({ message }) => {
         <span>{starting}</span>
       </div>
       <div className="messageContent">
+      {message.img && <img src={message.img} alt="" />}
         <p style={{ whiteSpace: 'pre-wrap' }}>{truncateText(message.text, 39)}</p>
-        {message.img && <img src={message.img} alt="" />}
+        
       </div>
     </div>
   );

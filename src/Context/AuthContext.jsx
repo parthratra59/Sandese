@@ -1,6 +1,7 @@
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged,confirmPasswordReset } from 'firebase/auth'
 import { auth } from '../Firebase'
 import React, { createContext, useEffect, useState } from 'react'
+
 const AuthContext=createContext()
 const Authorization = ({children}) => {
     
@@ -18,6 +19,9 @@ const Authorization = ({children}) => {
             // leakage na ho memory that's why
         }
     },[])
+
+
+ 
 
     return(
         <>

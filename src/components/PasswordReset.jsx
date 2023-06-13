@@ -24,6 +24,7 @@ const PasswordReset = () => {
     } catch (error) {
       setMessage('!! Email is not registered !!');
       setErr(true);
+      
       console.error(error);
     }
     setEmail('');
@@ -33,7 +34,7 @@ const PasswordReset = () => {
     <>
       <div className='form-container'>
         <div className='formWrapper'>
-          <span className='title'>RESET PASSWORD</span>
+          <span className='title' style={{color:'#AEBAC1',fontWeight:'bold'}}>FORGOT PASSWORD</span>
           <form className='forming' onSubmit={handleResetPassword}>
             <input
               type='email'
@@ -42,26 +43,22 @@ const PasswordReset = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <button>Change</button>
+            <button>SEND</button>
             {!err && (
               <div style={{ display: 'flex', justifyContent: 'center',alignItems: 'center'}}>
                 <p className='mapping'>{message}</p>
               </div>
             )}
+
             {err && (
-              <div style={{ display: 'flex',flexDirection:'column', alignItems: 'center' }}>
+              <div style={{ display: 'flex', justifyContent: 'center',alignItems: 'center'}}>
                 <p className='mapping'>{message}</p>
-                <p style={{ marginTop: '8px' }}>
-                  <span>Click on the </span>
-                  <Link
-                    style={{ color: '#e27396', textDecoration: 'none', fontWeight: 'bolder' }}
-                    to='/register'
-                  >
-                    Register
-                  </Link>
-                </p>
               </div>
             )}
+            <Link
+                    style={{ color: '#AEBAC1', textDecoration: 'none' }}
+                    to='/login' 
+                  >back</Link>
           </form>
         </div>
       </div>

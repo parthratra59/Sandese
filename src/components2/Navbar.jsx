@@ -11,9 +11,11 @@ const Navbar = () => {
     <div className='navbar'>
     <span className='Logo'>Sandese App</span>
     <div className='right'>
-        <img src= {currentUser.photoURL}alt=''/>
+        <div className='imaging'>
+        <img src= {currentUser.photoURL}alt='' />
+        </div>
         {/* </img> */}
-        <span style={{fontWeight:"bold",color:' #e27396'}}>{currentUser.displayName}</span>
+        <span style={{fontWeight:"bold",color: 'white'}}>{currentUser.displayName}</span>
         {/* <button>Logout</button> */}
     </div>
     </div>

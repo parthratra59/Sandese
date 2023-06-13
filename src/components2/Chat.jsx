@@ -23,7 +23,7 @@ const Chat = () => {
     <>
       <div className='chat' >
         <div className='chatinfo'>
-          <span style={{ color: '#E0E1E3', fontWeight: 'bold' }}>{data.user?.displayName}</span>
+          <span style={{ color: 'white', fontWeight: 'bold',fontSize:'20px' }}>{data.user?.displayName}</span>
           <div className='chaticons'>
             <button onClick={logout} style={{ background: '#e27396' }}>Logout</button>
           </div>

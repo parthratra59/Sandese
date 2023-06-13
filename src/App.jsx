@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import PasswordReset from "./components/PasswordReset";
+import ResetPage from "./components/ResetPage";
+// import Emptychats from "./components2/Emptychats";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -33,6 +35,8 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="passwordreset" element={<PasswordReset />} />
+          <Route path="resetpage" element={<ResetPage />} />
+          {/* <Route path="empty" element={<Emptychats />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>

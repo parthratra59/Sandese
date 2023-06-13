@@ -10,6 +10,7 @@ const Login = () => {
   const [err, setErr] = useState(false);
   const [passwordvisible, setPasswordVisible] = useState(false);
   const [eyeIconSrc, setEyeIconSrc] = useState(eyesclose);
+  const[loading,setloading]=useState(false);
   
   const handlePassword = () => {
     setPasswordVisible(!passwordvisible);
@@ -26,10 +27,12 @@ const Login = () => {
     try {
       // Sign in using Firebase
       await signInWithEmailAndPassword(auth,email, password);
+      setloading(false);
       navigate('/');
     } 
     catch (error) {
       setErr(true);
+      setloading(true);
     }
   };
 
@@ -47,7 +50,7 @@ const Login = () => {
       <div className='form-container'>
         <div className='formWrapper'>
           <span className='logo'>Sandese App</span>
-          <span className='title'>Login</span>
+          <span className='title' style={{color:'#AEBAC1',fontWeight:'bold'}}>Login</span>
           <form className='forming' onSubmit={handleSubmit}>
             <input type='email' placeholder='Email' required />
             <div className='eyebutton' style={{ display: 'flex', alignItems: 'center' }}>
@@ -55,13 +58,15 @@ const Login = () => {
                 type={passwordvisible ? 'text' : 'password'}
                 placeholder='Password'
                 id='password'
+                
                 required
                 onChange={handlePasswordChange}
               />
               <img src={eyeIconSrc} id='eyeicon' onClick={handlePassword} />
             </div>
-            <button>Sign in</button>
-            {err && <p style={{ color: 'red' }}>Invalid email or password.</p>}
+            <button >LOGIN</button>
+
+            {err &&  <p style={{ color: 'red' }}>Invalid email or password.</p>}
             <p>
               You don't have an account? <Link style={{ color: '#e27396', textDecoration: 'none', fontWeight: 'bold' }} to="/register">Register</Link>
             </p>

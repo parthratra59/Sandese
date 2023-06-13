@@ -5,7 +5,7 @@ import { db } from '../Firebase';
 import { ChatContext } from '../Context/ChatContext';
 
 const Chats = () => {
-  const [chats, setChats] = useState({});
+  const [chats, setChats] = useState([]); // Initialize with an empty array
   const { currentUser } = useContext(AuthContext);
   const { dispatch } = useContext(ChatContext);
 
@@ -33,14 +33,17 @@ const Chats = () => {
   const truncateText = (text, maxLength) => {
     if (text && text.length > maxLength) {
       return text.slice(0, maxLength) + '...';
+    } else if (text) {
+      return text;
     }
-    return text;
+    return '';
   };
+  
   
   return (
     <>
-      <div className='chatcomponent'>
-        {Object.entries(chats)
+      <div className='chatcomponent' >
+        {chats && Object.entries(chats)
           .sort((a, b) => b[1].date - a[1].date)
           .map((chat) => (
             <div
