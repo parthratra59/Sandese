@@ -124,7 +124,7 @@ currentUser.uid > user.uid
       <div className='searchForm'>
         <input
           type='text'
-          placeholder='Find a user...'
+          placeholder='Find a user...ex- Parth'
           // className='blinking-placeholder'
           style={{ paddingLeft: '10px' }}
           onKeyDown={handleKey}

@@ -2,14 +2,17 @@ import React from 'react'
 import { useContext } from 'react'
 import { auth } from '../Firebase'
 import { AuthContext } from '../Context/AuthContext'
+import { Link ,useNavigate} from 'react-router-dom'
+import Home from '../components/Home'
 // import '../style.scss'
 
 const Navbar = () => {
-
+  const navigate = useNavigate();
   const {currentUser} =useContext(AuthContext)
   return (
     <div className='navbar'>
-    <span className='Logo'>Sandese App</span>
+    <span className='Logo'  >
+    Sandese App</span>
     <div className='right'>
         <div className='imaging'>
         <img src= {currentUser.photoURL}alt='' />

@@ -38,71 +38,85 @@ const Register = () => {
     const email = e.target[1].value;
     const password = e.target[2].value;
     const file = e.target[3].files[0];
-
+    
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
-      const date = new Date().getTime();
-      const storageRef = ref(storage, `${displayName + date}`);
+      if (file) {
+        // Avatar file is selected
+        const date = new Date().getTime();
+        const storageRef = ref(storage, `${displayName + date}`);
 
-      await uploadBytesResumable(storageRef, file).then(() => {
-        getDownloadURL(storageRef).then(async (downloadURL) => {
-          try {
-            await updateProfile(res.user, {
-              displayName,
-              photoURL: downloadURL,
-            });
+        await uploadBytesResumable(storageRef, file).then(() => {
+          getDownloadURL(storageRef).then(async (downloadURL) => {
+            try {
+              await updateProfile(res.user, {
+                displayName,
+                photoURL: downloadURL,
+              });
 
-            await setDoc(doc(db, 'users', res.user.uid), {
-              uid: res.user.uid,
-              displayName,
-              email,
-              photoURL: downloadURL,
-            });
+              await setDoc(doc(db, 'users', res.user.uid), {
+                uid: res.user.uid,
+                displayName,
+                email,
+                photoURL: downloadURL,
+              });
 
-            await setDoc(doc(db, 'userChats', res.user.uid), {});
+              await setDoc(doc(db, 'userChats', res.user.uid), {});
 
-            navigate('/login');
-          } catch (error) {
-            console.log(error.message);
-            setErr(true);
-            setLoading(false);
-          }
+              navigate('/login');
+            } catch (error) {
+              console.log(error.message);
+              setErr(true);
+              setLoading(false);
+            }
+          });
         });
-      });
 
-      setAvatarSelected(true);
-      setAvatarUploaded(true);
+        setAvatarSelected(true);
+      } else {
+        // Avatar file is not selected
+        // Handle the registration logic without avatar
+        await updateProfile(res.user, {
+          displayName,
+        });
+
+        await setDoc(doc(db, 'users', res.user.uid), {
+          uid: res.user.uid,
+          displayName,
+          email,
+        });
+
+        await setDoc(doc(db, 'userChats', res.user.uid), {});
+
+        navigate('/login');
+      }
+
       setErr(false);
-      setLoading(false);
+      setLoading(true);
     } catch (err) {
       console.log(err.message);
       setErr(true);
-      setLoading(true);
+      setLoading(false);
     }
   };
 
   const handleEmailChange = (e) => {
     const email = e.target.value;
     setEmail(email);
-    if(!email.match(emailRegex) && email.length > 0)
-    {
+    if (!email.match(emailRegex) && email.length > 0) {
       setEmailError(true);
-    }
-    else{
+    } else {
       setEmailError(false);
     }
-
   };
 
   const handlePasswordChange = (e) => {
     const password = e.target.value;
-    
-    if(!password.match(passwordRegex) && password.length > 0)
-    {
+
+    if (!password.match(passwordRegex) && password.length > 0) {
       setPasswordError(true);
-    }
-    else{
+    } else {
       setPasswordError(false);
     }
     setPassword(password);
@@ -114,32 +128,31 @@ const Register = () => {
       <div className='form-container'>
         <div className='formWrapper'>
           <span className='logo'>Sandese App</span>
-          <span className='title' style={{color:'#AEBAC1',fontWeight:'bold'}}>Register</span>
+          <span className='title' style={{ color: '#AEBAC1', fontWeight: 'bold' }}>Register</span>
           <form className='forming' onSubmit={handleSubmit}>
             <input type='text' placeholder='display name' required />
             <input type='email' placeholder='email' required value={email} onChange={handleEmailChange} className={emailError ? 'invalid' : ''} />
-            {emailError && email.length > 0 && <span className='error'  style={{color:'#AEBAC1'}}>Format is invalid</span>}
+            {emailError && email.length > 0 && <span className='error' style={{ color: '#AEBAC1' }}>Format is invalid</span>}
             <div className='eyebutton' style={{ display: 'flex', alignItems: 'center' }}>
-              <input type={passwordVisible ? 'text' : 'password'}  placeholder='password' id='password' value={password} required onChange={handlePasswordChange}/>
-              
-             
+              <input type={passwordVisible ? 'text' : 'password'} placeholder='password' id='password' value={password} required onChange={handlePasswordChange} />
               <img src={eyeIconSrc} id='eyeicon' onClick={handlePassword} alt='Eye Icon' />
-              
             </div>
-            {passwordError && password.length > 0 && <span className='error'  style={{color:'#AEBAC1'}}>Format is invalid</span>}
+            {passwordError && password.length > 0 && <span className='error' style={{ color: '#AEBAC1' }}>Format is invalid</span>}
             <input style={{ display: 'none', border: 'none' }} type='file' id='file' />
             <label htmlFor='file'>
-              <img src={Add} alt='' required />
-              <span style={{color:'#AEBAC1'}}>Add an avatar</span>
-              
+              <img src={Add} alt='' />
+              <span style={{ color: '#AEBAC1' }}>
+                Add an avatar
+                
+              </span>
             </label>
-            {avatarUploaded && <span className='success'  style={{color:'#AEBAC1'}}>Avatar uploaded successfully!</span>} {/* Success message for avatar upload */}
-            {err && <span className='error'>Something went wrong</span>}
-            {/* disable rhega jb tk error hai  dynamic button bn gya*/}
+
+            {/* Success message for avatar upload */}
+            {err ? <span className='error' style={{ color: '#AEBAC1' }}>Email Already Registered!!</span> : ""}
+            
             <button disabled={emailError || passwordError || loading}>{loading ? 'Loading...' : 'Sign Up'}</button>
           </form>
-          {/* err nhi hai tb yh dikhae iska koi meaning nhi hai bs  */}
-            <>
+          <>
               <div>
                 <p>
                   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

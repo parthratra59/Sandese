@@ -65,6 +65,7 @@ useEffect(() => {
         <span>{starting}</span>
       </div>
       <div className="messageContent">
+      {/* message.img props pass hua hai */}
       {message.img && <img src={message.img} alt="" />}
         <p style={{ whiteSpace: 'pre-wrap' }}>{truncateText(message.text, 39)}</p>
         

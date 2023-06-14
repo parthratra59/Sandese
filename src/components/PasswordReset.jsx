@@ -49,12 +49,6 @@ const PasswordReset = () => {
                 <p className='mapping'>{message}</p>
               </div>
             )}
-
-            {err && (
-              <div style={{ display: 'flex', justifyContent: 'center',alignItems: 'center'}}>
-                <p className='mapping'>{message}</p>
-              </div>
-            )}
             <Link
                     style={{ color: '#AEBAC1', textDecoration: 'none' }}
                     to='/login' 

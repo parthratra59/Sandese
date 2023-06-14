@@ -66,7 +66,7 @@ const Login = () => {
             </div>
             <button >LOGIN</button>
 
-            {err &&  <p style={{ color: 'red' }}>Invalid email or password.</p>}
+            {err &&  <p style={{ color: '#AEBAC1' }}>Invalid email or password.</p>}
             <p>
               You don't have an account? <Link style={{ color: '#e27396', textDecoration: 'none', fontWeight: 'bold' }} to="/register">Register</Link>
             </p>
