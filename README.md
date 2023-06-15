@@ -67,14 +67,16 @@ To run the project locally, follow these steps:
 
 
                                                 Clone the repository:
-                                                git clone <>
-                                                git clone <repository-url : cd project-directory
-                                                Navigate to the project directory:  npm install
-                                                npm install: npm start
+                                                  ->git clone
+                                                       <https://github.com/ParthRatra/Sandese.git>
+                                                  
+                                                Navigate to the project directory:
+                                                ->cd project-directory
+                                                npm install
                                                 npm start
-                                      This will start the project locally and you can access it in your web browser by visiting http://localhost:3000.
+                                   This will start the project locally and you can access it in your web browser by visiting http://localhost:3000.
 
-                               Note: Make sure you have Node.js and npm (Node Package Manager) installed on your machine before running these commands.
+                             Note: Make sure you have Node.js and npm (Node Package Manager) installed on your machine before running these commands.
 
 
 
