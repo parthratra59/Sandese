@@ -1,9 +1,28 @@
-SANDESE APP
+# SANDESE APP
 
+### About the Application
 You can visit the live website deployed at https://sandese-app-4dde9.web.app/.
 
 The Sandese Chat app utilizes a range of tools and technologies including HTML, CSS, and JavaScript with the React.js library. With the incorporation of Firebase, the app offers secure login and signup functionality, along with features like forgot/reset password for enhanced user convenience.
 
+## Pre-Requisites
+ - Node.js(latest version) installed on the local environment.
+ - npm (Node Package Manager) installed on your local environment.
+
+## How to Run?
+
+To run the project locally, follow these steps:
+  - Clone the repository:<br>
+    `git clone https://github.com/ParthRatra/Sandese.git`
+  - Navigate to the project directory and input:<br>
+    `cd project-directory`<br>
+    `npm install`<br>
+    `npm start`<br>                                                 
+                                               
+                                               
+  This will start the project locally and you can access it in your web browser by visiting http://localhost:3000
+
+## Glimpses of the application
 Here's is the Registration page ⬇️
 
 
@@ -61,20 +80,8 @@ Here's some Screenshot of the DATABASE
 
 
 
-To run the project locally, follow these steps:
 
-
-
-
-                                                Clone the repository:
-                                                  ->git clone
-                                                       <https://github.com/ParthRatra/Sandese.git>
-                                                Navigate to the project directory:
-                                                ->cd project-directory
-                                                npm install
-                                                npm start
-  This will start the project locally and you can access it in your web browser by visiting http://localhost:3000
-  Note: Make sure you have Node.js and npm (Node Package Manager) installed on your machine before running these commands.
+  
 
 
 
