@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import eyesclose from '../image/eye-close.png';
 import eyesopen from '../image/eye-open.png';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [err, setErr] = useState(false);
@@ -28,11 +29,14 @@ const Login = () => {
       // Sign in using Firebase
       await signInWithEmailAndPassword(auth,email, password);
       setloading(false);
+      toast.success('Login Successful');
       navigate('/');
     } 
     catch (error) {
+
       setErr(true);
       setloading(true);
+      toast.error('Invalid Credentials');
     }
   };
 
@@ -62,11 +66,10 @@ const Login = () => {
                 required
                 onChange={handlePasswordChange}
               />
-              <img src={eyeIconSrc} id='eyeicon' onClick={handlePassword} />
+              <img src={eyeIconSrc} alt='parthimage' id='eyeicon' onClick={handlePassword} />
             </div>
             <button >LOGIN</button>
 
-            {err &&  <p style={{ color: '#AEBAC1' }}>Invalid email or password.</p>}
             <p>
               You don't have an account? <Link style={{ color: '#e27396', textDecoration: 'none', fontWeight: 'bold' }} to="/register">Register</Link>
             </p>

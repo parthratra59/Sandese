@@ -1,0 +1,19 @@
+.jiyan{
+    display: hidden;
+    height: 100vh;
+    background-color: #111B21;
+}
+.butting {
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add transition for background-color */
+  }
+  .butting:disabled {
+    background-color: #cccccc;
+    color: #888888;
+    cursor: not-allowed;
+    transition: background-color 0.3s ease; /* Add transition for background-color */
+  }

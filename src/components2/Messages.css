@@ -1,0 +1,28 @@
+.pakistan {
+    font-size: 150px;
+  }
+.jiyan{
+    height: 100vh;
+    
+}
+
+
+
+@media screen and (max-width: 850px) {
+        .kit {
+           
+            text-align: center;
+        }
+        .pakistan {
+            font-size: 120px; /* Adjust this value to your desired smaller size */
+          }
+          
+        
+      
+}
+
+@media  screen and (max-width: 1000px) {
+    .messages{
+        height: 80vh;
+    }
+}
