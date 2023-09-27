@@ -2,7 +2,13 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import { ChatContext } from '../Context/ChatContext';
 
+
+
+
+
 const Message = ({ message }) => {
+
+  // const{setChat}=useContext(GlobalContext2)
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
   const[starting,settime]=useState('just now')
@@ -45,33 +51,51 @@ useEffect(() => {
       return hours + " hr"; // Return the hours
     }
   };
-  
+
+  const[visible,setVisible]=useState(false)
+
+  useEffect(()=>{
+    const keyhandler=(e)=>{
+      if(e.key==="Escape"){
+        setVisible(true)
+      }
+
+    }
+    window.addEventListener("keydown",keyhandler)
+
+    return ()=>{
+      window.removeEventListener("keydown",keyhandler)
+    }
+  },[])
+
 
   return (
-    <div
-      ref={ref}
-      className={`message ${message.senderId === currentUser.uid && 'owner'}`}
-    >
-      <div className="messageInfo">
-        <img
-          src={
-          message.senderId === currentUser.uid
-              ? currentUser.photoURL
-              : data.user.photoURL
-          }
-          alt=""
-        />
-        {/* hm hmesha jo chnage hone vala hota vo likhte hai */}
-        <span>{starting}</span>
+  
+      <>
+      <div
+        ref={ref}
+        className={`message ${message.senderId === currentUser.uid && 'owner'}`}
+      >
+        <div className="messageInfo">
+          <img
+            src={
+              message.senderId === currentUser.uid
+                ? currentUser.photoURL
+                : data.user.photoURL
+            }
+            alt=""
+          />
+          {/* hm hmesha jo change hone vala hota vo likhte hai */}
+          <span>{starting}</span>
+        </div>
+        <div className="messageContent">
+          {/* message.img props pass hua hai */}
+          {message.img && <img src={message.img} alt="" />}
+          <p style={{ whiteSpace: 'pre-wrap' }}>{truncateText(message.text, 39)}</p>
+        </div>
       </div>
-      <div className="messageContent">
-      {/* message.img props pass hua hai */}
-      {message.img && <img src={message.img} alt="" />}
-        <p style={{ whiteSpace: 'pre-wrap' }}>{truncateText(message.text, 39)}</p>
-        
-      </div>
-    </div>
-  );
-};
+      </>
+    )
+}
 
 export default Message;

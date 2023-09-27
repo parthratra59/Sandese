@@ -1,25 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { collection, query, where, getDocs, setDoc, doc, updateDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { db } from '../Firebase';
 import { AuthContext } from '../Context/AuthContext';
 import { useContext } from 'react';
+import toast from 'react-hot-toast';
 
 const Searchbar = () => {
   const [username, setUsername] = useState('');
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
   const { currentUser } = useContext(AuthContext);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth); 
+  useEffect(() => {
+    // Add a window resize event listener to update the viewportWidth state
+    function handleResize() {
+      setViewportWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleSearch = async () => {
     const q = query(collection(db, 'users'), where('displayName', '==', username));
     try {
       const querySnapshot = await getDocs(q);
+  
+      // Initialize foundUser as null
+      let foundUser = null;
+  
       querySnapshot.forEach((doc) => {
-        setUser(doc.data());
+        const userData = doc.data();
+        if (userData.uid !== currentUser.uid) {
+          // If the user is not the current user, set foundUser to the user data
+          foundUser = userData;
+        }
       });
+  
+      if (foundUser) {
+        // User found, reset the error flag
+        setErr(false);
+        setUser(foundUser);
+      } else {
+        // No user with the given username found
+        toast.error('User not found');
+        setUser(null);
+        setErr(true);
+      }
     } catch (err) {
       setErr(true);
     }
+  
   };
 
   const handleKey = (e) => {
@@ -59,21 +94,22 @@ const Searchbar = () => {
     setUser(null);
     setUsername('');
   };
+  const placeholderText = viewportWidth < 1000 ? 'Find user..' : 'Find a user...ex- Parth';
 
   return (
     <div className="search">
       <div className="searchForm">
         <input
           type="text"
-          placeholder="Find a user...ex- Parth"
+          placeholder={placeholderText}
           style={{ paddingLeft: '10px', width: '100%' }}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
           onKeyDown={handleKey}
+          autoComplete='on'
         />
       </div>
-      {err && <span>User not found</span>}
-
+     
       {user && (
         <div className="userchat" onClick={handleSelect}>
           <img src={user.photoURL} alt="" />

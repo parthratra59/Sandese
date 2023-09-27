@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { ChatContext } from "../Context/ChatContext";
+import "./Input.css";
 import {
   arrayUnion,
   doc,
@@ -12,6 +13,7 @@ import { db, storage } from "../Firebase";
 import { v4 as uuidv4 } from 'uuid';
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { HiOutlinePhotograph } from 'react-icons/hi';
+import toast from "react-hot-toast";
 
 const Input = () => {
   const [text, setText] = useState("");
@@ -25,13 +27,17 @@ const Input = () => {
 
 
   const handleSend = async () => {
+    
 
 
        // https://firebase.google.com/docs/firestore/manage-data/add-data#update_elements_in_an_array idhr se liya hai
 
-    if (text <= 0) {
-      return alert('No message');
-    }
+      //  The trim method is a JavaScript string method that removes leading and trailing whitespace (spaces, tabs, line breaks, etc.) from a string. It does not modify the original string but instead returns a new string with the whitespace removed.
+    
+        // if (text.trim().length === 0) {
+        //   // If the text is empty or contains only whitespace, do not send.
+        //   return alert('No message');
+        // // }
 //     uploadTask.on(
 //       // This code is responsible for uploading the image to the specified storage location.
 // // and storage isliye kiya because image storage mai hona chaiye upload
@@ -80,6 +86,7 @@ const Input = () => {
 
         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
         await updateChatDocument(downloadURL);
+        toast.success('Image uploaded successfully');
         // alert(`File Uploaded : ${img.name}`)
       } catch (error) {
         // Handle error during upload or getting download URL
@@ -125,6 +132,9 @@ const Input = () => {
   };
 
   return (
+    <>
+    {data.user?.displayName? (
+      <>
     <div className='imputing'>
       <input
         className='texting'
@@ -147,11 +157,23 @@ const Input = () => {
             style={{ color: '#e27396', fontSize: '35px', cursor: 'pointer' }}
           />
         </label>
-        <button className='butting' onClick={handleSend}>
+        <button
+                className='butting'
+                onClick={handleSend}
+                disabled={text.trim().length === 0 }
+                 // Disable the button when text is empty or contains only whitespace
+              >
           Send
         </button>
       </div>
     </div>
+    </>
+    ) : (
+      <div className='jiyan'>
+      
+      </div>
+    )}
+    </>
   );
 };
 

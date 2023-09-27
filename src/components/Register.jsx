@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth, db, storage } from '../Firebase';
+import { createUserWithEmailAndPassword, updateProfile,fetchSignInMethodsForEmail,getAuth } from 'firebase/auth';
+import { auth, db, storage} from '../Firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { doc, setDoc } from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,6 +8,10 @@ import { RiLockPasswordFill } from 'react-icons/ri';
 import Add from '../image/ava.png';
 import eyesclose from '../image/eye-close.png';
 import eyesopen from '../image/eye-open.png';
+import { toast } from 'react-hot-toast';
+
+
+
 
 const Register = () => {
   const [err, setErr] = useState(false);
@@ -40,6 +44,10 @@ const Register = () => {
     const file = e.target[3].files[0];
     
     try {
+      
+     
+    
+
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
       if (file) {
@@ -55,6 +63,8 @@ const Register = () => {
                 photoURL: downloadURL,
               });
 
+              toast.success('Avatar uploaded successfully');
+                // jaise mongodb and nodejs mai krte na vohi idhr kr he hai create kro user ko aur uske andr uski id aur uski email aur uski photo url then set krdo firebase mai aur userchats mai bhi set krdo
               await setDoc(doc(db, 'users', res.user.uid), {
                 uid: res.user.uid,
                 displayName,
@@ -64,31 +74,40 @@ const Register = () => {
 
               await setDoc(doc(db, 'userChats', res.user.uid), {});
 
+              setLoading(false);
+              setAvatarUploaded(true);
+              toast.success('Registration Successful');
               navigate('/login');
             } catch (error) {
-              console.log(error.message);
+              toast.error('Error uploading photo. Please try again later.'); 
               setErr(true);
               setLoading(false);
             }
           });
         });
-
+        
         setAvatarSelected(true);
       } else {
         // Avatar file is not selected
         // Handle the registration logic without avatar
+        // yh bhi kr skte dispayName.slice(0,1).toUpperCase() 0 hai start index 1 hai end index 1 excluded hai
+        const firstCharacter = displayName.charAt(0).toUpperCase();
+        const photoURL = `https://api.dicebear.com/6.x/initials/svg?seed=${firstCharacter}&backgroundColor=00897b,00acc1,039be5,1e88e5,3949ab,43a047,5e35b1,7cb342,8e24aa,c0ca33,d81b60,e53935,f4511e,fb8c00,fdd835,ffb300,ffd5dc,ffdfbf,c0aede,d1d4f9,b6e3f4&backgroundType=solid,gradientLinear&backgroundRotation=0,360,-350,-340,-330,-320&fontFamily=Arial&fontWeight=600`;
+
         await updateProfile(res.user, {
           displayName,
+          photoURL,
         });
 
         await setDoc(doc(db, 'users', res.user.uid), {
           uid: res.user.uid,
           displayName,
           email,
+          photoURL,
         });
 
         await setDoc(doc(db, 'userChats', res.user.uid), {});
-
+        toast.success('Registration Successful');
         navigate('/login');
       }
 
@@ -96,6 +115,9 @@ const Register = () => {
       setLoading(true);
     } catch (err) {
       console.log(err.message);
+      if (err.code === 'auth/email-already-in-use') {
+        toast.error('Email already registered');
+      } 
       setErr(true);
       setLoading(false);
     }
@@ -132,12 +154,12 @@ const Register = () => {
           <form className='forming' onSubmit={handleSubmit}>
             <input type='text' placeholder='display name' required />
             <input type='email' placeholder='email' required value={email} onChange={handleEmailChange} className={emailError ? 'invalid' : ''} />
-            {emailError && email.length > 0 && <span className='error' style={{ color: '#AEBAC1' }}>Format is invalid</span>}
+          
             <div className='eyebutton' style={{ display: 'flex', alignItems: 'center' }}>
               <input type={passwordVisible ? 'text' : 'password'} placeholder='password' id='password' value={password} required onChange={handlePasswordChange} />
               <img src={eyeIconSrc} id='eyeicon' onClick={handlePassword} alt='Eye Icon' />
             </div>
-            {passwordError && password.length > 0 && <span className='error' style={{ color: '#AEBAC1' }}>Format is invalid</span>}
+            
             <input style={{ display: 'none', border: 'none' }} type='file' id='file' />
             <label htmlFor='file'>
               <img src={Add} alt='' />
@@ -148,7 +170,7 @@ const Register = () => {
             </label>
 
             {/* Success message for avatar upload */}
-            {err ? <span className='error' style={{ color: '#AEBAC1' }}>Email Already Registered!!</span> : ""}
+            
             
             <button disabled={emailError || passwordError || loading}>{loading ? 'Loading...' : 'Sign Up'}</button>
           </form>

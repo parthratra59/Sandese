@@ -4,7 +4,8 @@ import { auth } from '../Firebase';
 import { confirmPasswordReset } from 'firebase/auth';
 import eyesclose from '../image/eye-close.png';
 import eyesopen from '../image/eye-open.png';
-
+import toast from 'react-hot-toast';
+import "./ResetPassword.css"
 const useQuery = () => {
   const location = useLocation();
   return new URLSearchParams(location.search);
@@ -18,15 +19,10 @@ const ResetPage = ({ savevalue }) => {
   const [eyeIconSrc, setEyeIconSrc] = useState(eyesclose);
   const [passwordError, setPasswordError] = useState(false);
   const navigate = useNavigate();
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  const handlepassword = () => {
-    setPasswordVisible(!passwordvisible);
-    setEyeIconSrc(passwordvisible ? eyesclose : eyesopen);
-  };
 
   const query = useQuery();
 
-  const resetingpassword = async (oobCode, newPassword) => {
+  const resetPassword = async (oobCode, newPassword) => {
     try {
       await confirmPasswordReset(auth, oobCode, newPassword);
       return true;
@@ -38,37 +34,68 @@ const ResetPage = ({ savevalue }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+
+    if (!passwordRegex.test(newpassword)) {
+      toast.error(
+        <div className="error-message">
+          <p>
+            Password must be at least 8 characters long and must contain at
+            least:
+          </p>
+          <ul>
+            <li>at least one uppercase letter</li>
+            <li>at least one lowercase letter</li>
+            <li>at least one number</li>
+            <li>Special characters are allowed</li>
+          </ul>
+        </div>
+      );
+      return;
+    }
+
     try {
-      if (newpassword == savevalue) {
+      if (newpassword === savevalue) {
         setErr(true);
         return;
       }
-      const res = await resetingpassword(query.get('oobCode'), newpassword);
-      console.log(res);
 
-      // Password reset successful
-      // You can show a success message or redirect the user to a confirmation page
-      setErr(false);
-      setLoading(false);
-      navigate('/login');
-    } catch (error) {
-      console.log(error);
-      setErr(true);
       setLoading(true);
-      // Password reset failed
-      // You can show an error message to the user
+      const res = await resetPassword(query.get('oobCode'), newpassword);
+
+      if (res) {
+        // Password reset successful
+        // You can show a success message or redirect the user to a confirmation page
+        setLoading(false);
+        navigate('/login');
+        toast.success('Password reset successful');
+      } else {
+        // Password reset failed
+        // You can show an error message to the user
+        setLoading(false);
+        setErr(true);
+      }
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      setErr(true);
     }
   };
 
   const handlePasswordChange = (e) => {
     const password = e.target.value;
 
-    if (!password.match(passwordRegex) && password.length > 0) {
-      setPasswordError(true);
-    } else {
-      setPasswordError(false);
+    if (password.length > 0) {
+      setPasswordError(false); // Reset password error when there's input
     }
     setNewPassword(password);
+  };
+
+  const handlepassword = () => {
+    setPasswordVisible(!passwordvisible);
+    setEyeIconSrc(passwordvisible ? eyesclose : eyesopen);
   };
 
   return (
@@ -86,20 +113,18 @@ const ResetPage = ({ savevalue }) => {
                 required
                 onChange={handlePasswordChange}
               />
-              <img src={eyeIconSrc} id='eyeicon' onClick={handlepassword} />
+              <img src={eyeIconSrc} alt='imaging' id='eyeicon' onClick={handlepassword} />
             </div>
-            {passwordError && newpassword.length > 0 && (
-              <span className='error' style={{ color: '#AEBAC1' }}>
-                Format is invalid
-              </span>
-            )}
+
             {err && (
               <span className='error' style={{ color: '#AEBAC1' }}>
                 New password must be different from the previous password.
               </span>
             )}
             {/* dynamic button */}
-            <button disabled={passwordError || loading}>{loading ? 'Loading...' : 'RESET'}</button>
+            <button disabled={passwordError || loading}>
+              {loading ? 'Loading...' : 'RESET'}
+            </button>
           </form>
         </div>
       </div>

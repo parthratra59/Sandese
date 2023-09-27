@@ -4,8 +4,11 @@ import { ChatContext } from "../Context/ChatContext";
 import { db } from "../Firebase";
 import Message from "./Message";
 import { BiMessageX } from 'react-icons/bi';
-import Input from "./Input";
+// import { GlobalContext2 } from "../components/Home"
+import "./Messages.css"
+
 const Messages = () => {
+  // const { chat, setChat } = useContext(GlobalContext2);
   const [messages, setMessages] = useState([]);
   const { data } = useContext(ChatContext);
   const [visible, setVisible] = useState(false);
@@ -18,6 +21,7 @@ const Messages = () => {
       unSub();
     };
   }, [data.chatId]);
+
 
   console.log(messages)
   const hi = () => {
@@ -34,9 +38,8 @@ TypeError: Cannot read properties of undefined (reading 'length')
     {/* Additionally, you can add a null check before accessing the messages array in the JSX code. You can use the && operator to conditionally render the messages only if messages is not null or undefined. Here's an example: */}
       { messages && messages.length === 0 ? (
         <div className="nouser" k={hi} >
-          <BiMessageX style={{ color: '#e27396', fontSize: '150px' }} />
-          <p style={{ fontSize: '40px', color: '#e27396' }}>No Chat Selected</p>
-          
+          <BiMessageX style={{ color: '#e27396', fontSize: '150px' }} className="pakistan"/>
+          <p style={{ fontSize: '40px', color: '#e27396' }} className="kit">No Chat Selected</p>
         </div>
 
       ) : (
