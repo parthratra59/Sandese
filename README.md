@@ -4,7 +4,11 @@
 Live deployed link: https://sandese-app-4dde9.web.app/
 
 
-Demo video: https://github.com/ParthRatra/Sandese/assets/90822015/f488ee13-4c01-408c-8204-5bc5eb81d027
+Demo video: 
+
+https://github.com/ParthRatra/Sandese/assets/90822015/a63d60d5-65bd-4496-ae67-ebbc03c3fdfe
+
+
 
 
 
