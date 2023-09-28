@@ -10,6 +10,7 @@ The Sandese Chat app is a powerful messaging platform built using HTML, CSS, and
 
 
 
+
  ### 📽️ Demo Video: 
 
 https://github.com/ParthRatra/Sandese/assets/90822015/a63d60d5-65bd-4496-ae67-ebbc03c3fdfe
@@ -29,15 +30,32 @@ https://github.com/ParthRatra/Sandese/assets/90822015/a63d60d5-65bd-4496-ae67-eb
 ## How to Run?
 
 To run the project locally, follow these steps:
-  - Clone the repository:<br>
-    `git clone https://github.com/ParthRatra/Sandese.git`
-  - Navigate to the project directory and input:<br>
-    `cd project-directory`<br>
-    `npm install`<br>
-    `npm start`<br>                                                 
-                                               
-                                               
-  This will start the project locally and you can access it in your web browser by visiting http://localhost:3000
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/ParthRatra/Sandese.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd projectdictonary
+```
+
+3. Install the required dependencies:
+
+```bash
+npm install
+```
+
+4. Start the project locally:
+
+```bash
+npm start
+```
+
+This will start the project locally and you can access it in your web browser by visiting http://localhost:3000
 
 ## Glimpses of the application
 Here's is the Registration page ⬇️
