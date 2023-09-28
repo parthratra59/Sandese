@@ -1,6 +1,10 @@
 # SANDESE APP
 
 ### About the Application
+
+The Sandese Chat app is a powerful messaging platform built using HTML, CSS, and JavaScript with the React.js library. By integrating Firebase, the app provides a secure login and signup system, along with convenient features like forgot/reset password. Additionally, users can enjoy a seamless photo sharing experience through Firebase's storage capabilities. 
+
+
 Live deployed link: https://sandese-app-4dde9.web.app/
 
 
@@ -14,7 +18,7 @@ https://github.com/ParthRatra/Sandese/assets/90822015/a63d60d5-65bd-4496-ae67-eb
 
 
 
-The Sandese Chat app is a powerful messaging platform built using HTML, CSS, and JavaScript with the React.js library. By integrating Firebase, the app provides a secure login and signup system, along with convenient features like forgot/reset password. Additionally, users can enjoy a seamless photo sharing experience through Firebase's storage capabilities. 
+
 
 ## Pre-Requisites
  - Node.js(latest version) installed on the local environment.
