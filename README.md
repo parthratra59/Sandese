@@ -40,7 +40,7 @@ git clone https://github.com/ParthRatra/Sandese.git
 2. Navigate to the project directory:
 
 ```bash
-cd projectdictonary
+cd <projectdictonary>
 ```
 
 3. Install the required dependencies:
