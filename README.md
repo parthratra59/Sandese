@@ -6,6 +6,8 @@ The Sandese Chat app is a powerful messaging platform built using HTML, CSS, and
 
 
  ### 🚀 Live Deployed Link: https://sandese-app-4dde9.web.app/register
+ ### Test user emailid:- curiouspeeps1@gmail.com
+### password :- Nomadtrakker@1234
 
 
 
